@@ -224,6 +224,27 @@
                     <div id="currency-output" style="color: #38bdf8; font-size: 1.2rem; font-weight: bold; min-height: 35px;">النتيجة الحية ستظهر هنا...</div>
                 </div>
             </div>
+            <div class="tool-card">
+                <h3 id="tool11-title">🌐 مترجم النصوص الفوري السريع</h3>
+                <p id="tool11-desc" style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 15px;">ترجم نصوصك فوراً بين اللغتين العربية والإنجليزية بدقة وسرعة فائقة.</p>
+                
+                <textarea id="translate-input" placeholder="أدخل النص المراد ترجمته هنا..." style="width: 100%; height: 80px; background-color: #0f172a; color: #f8fafc; border: 1px solid #334155; border-radius: 8px; padding: 10px; box-sizing: border-box; resize: vertical; margin-bottom: 10px;"></textarea>
+                
+                <div style="display: flex; gap: 10px; margin-bottom: 15px; align-items: center;">
+                    <span id="label-translate-to" style="font-size: 0.9rem;">الترجمة إلى:</span>
+                    <select id="translate-lang" style="flex: 1; padding: 8px; background-color: #0f172a; color: #f8fafc; border: 1px solid #334155; border-radius: 8px;">
+                        <option value="en">English (الإنجليزية)</option>
+                        <option value="ar">العربية (Arabic)</option>
+                    </select>
+                </div>
+
+                <button id="translate-btn" onclick="translateText()" style="width: 100%; background-color: #38bdf8; color: #0f172a; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 15px;">ترجم النص الآن</button>
+                
+                <div class="results-box" style="position: relative;">
+                    <div id="translate-output" style="color: #94a3b8; font-size: 0.95rem; min-height: 35px; white-space: pre-wrap;">النص المترجم سيظهر هنا...</div>
+                    <button id="copy-translate-btn" onclick="copyTranslatedText()" style="display: none; margin-top: 10px; background-color: #475569; color: #f8fafc; border: none; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">نسخ الترجمة</button>
+                </div>
+            </div>
 
         </div>
     </main>

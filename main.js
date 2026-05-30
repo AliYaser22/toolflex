@@ -183,6 +183,15 @@ function switchLanguage() {
         if(document.getElementById('currency-output').innerText === "النتيجة الحية ستظهر هنا...") {
             document.getElementById('currency-output').innerText = "Live result will appear here...";
         }
+        document.getElementById('tool11-title').innerText = "🌐 Quick Text Translator";
+        document.getElementById('tool11-desc').innerText = "Translate your texts instantly between Arabic and English with high speed and accuracy.";
+        document.getElementById('translate-input').placeholder = "Enter text to translate here...";
+        document.getElementById('label-translate-to').innerText = "Translate To:";
+        document.getElementById('translate-btn').innerText = "Translate Now";
+        document.getElementById('copy-translate-btn').innerText = "Copy Translation";
+        if(document.getElementById('translate-output').innerText === "النص المترجم سيظهر هنا...") {
+            document.getElementById('translate-output').innerText = "Translated text will appear here...";
+        }
     } else {
         currentLanguage = 'ar';
         html.setAttribute('lang', 'ar');
@@ -279,6 +288,15 @@ function switchLanguage() {
         document.getElementById('convert-currency-btn').innerText = "احسب السعر الحي الآن";
         if(document.getElementById('currency-output').innerText === "Live result will appear here...") {
             document.getElementById('currency-output').innerText = "النتيجة الحية ستظهر هنا...";
+        }
+        document.getElementById('tool11-title').innerText = "🌐 مترجم النصوص الفوري السريع";
+        document.getElementById('tool11-desc').innerText = "ترجم نصوصك فوراً بين اللغتين العربية والإنجليزية بدقة وسرعة فائقة.";
+        document.getElementById('translate-input').placeholder = "أدخل النص المراد ترجمته هنا...";
+        document.getElementById('label-translate-to').innerText = "الترجمة إلى:";
+        document.getElementById('translate-btn').innerText = "ترجم النص الآن";
+        document.getElementById('copy-translate-btn').innerText = "نسخ الترجمة";
+        if(document.getElementById('translate-output').innerText === "Translated text will appear here...") {
+            document.getElementById('translate-output').innerText = "النص المترجم سيظهر هنا...";
         }
     }
 }
@@ -679,4 +697,68 @@ async function convertCurrency() {
         console.error("Error fetching currency:", error);
         outputElement.textContent = currentLanguage === 'ar' ? "عذراً، فشل الاتصال بالسيرفر وجلب السعر الحالي!" : "Error fetching live rates!";
     }
+}
+// وظيفة مترجم النصوص الفوري السريع
+async function translateText() {
+    const inputElement = document.getElementById('translate-input');
+    const langSelect = document.getElementById('translate-lang');
+    const outputElement = document.getElementById('translate-output');
+    const copyBtn = document.getElementById('copy-translate-btn');
+
+    if (!inputElement || !langSelect || !outputElement) return;
+
+    const text = inputElement.value.trim();
+    const targetLang = langSelect.value;
+
+    if (text === "") {
+        outputElement.textContent = currentLanguage === 'ar' ? "الرجاء إدخال نص أولاً للترجمة!" : "Please enter some text first to translate!";
+        if (copyBtn) copyBtn.style.display = "none";
+        return;
+    }
+
+    outputElement.textContent = currentLanguage === 'ar' ? "جاري الترجمة الفورية..." : "Translating...";
+
+    try {
+        // استخدام خدمة ترجمة مجانية ومفتوحة ومستقرة جداً بدون مفاتيح سرية
+        const response = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`);
+        const data = await response.json();
+
+        if (data && data[0]) {
+            // تجميع الأجزاء المترجمة (في حال كان النص طويلاً ومقسماً)
+            let translatedResult = "";
+            data[0].forEach(part => {
+                if (part[0]) translatedResult += part[0];
+            });
+            
+            outputElement.textContent = translatedResult;
+            if (copyBtn) copyBtn.style.display = "inline-block";
+        } else {
+            throw new Error("Translation failed");
+        }
+    } catch (error) {
+        console.error("Error translating text:", error);
+        outputElement.textContent = currentLanguage === 'ar' ? "عذراً، فشل الاتصال بمحرك الترجمة!" : "Error connecting to translation engine!";
+        if (copyBtn) copyBtn.style.display = "none";
+    }
+}
+
+// وظيفة نسخ النص المترجم
+function copyTranslatedText() {
+    const outputElement = document.getElementById('translate-output');
+    if (!outputElement) return;
+
+    const textToCopy = outputElement.textContent;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        const copyBtn = document.getElementById('copy-translate-btn');
+        if (!copyBtn) return;
+
+        const originalText = copyBtn.innerText;
+        copyBtn.innerText = currentLanguage === 'ar' ? "تم النسخ! ✓" : "Copied! ✓";
+        copyBtn.style.backgroundColor = "#22c55e";
+        
+        setTimeout(() => {
+            copyBtn.innerText = originalText;
+            copyBtn.style.backgroundColor = "#475569";
+        }, 2000);
+    });
 }
