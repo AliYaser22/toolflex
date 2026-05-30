@@ -1,3 +1,4 @@
+/* التنسيق العام والأساسي */
 body {
     background-color: #0f172a;
     color: #f8fafc;
@@ -6,6 +7,7 @@ body {
     padding: 0;
 }
 
+/* تنسيق الهيدر */
 header {
     background-color: #1e293b;
     padding: 15px 20px;
@@ -34,8 +36,29 @@ header {
     border-radius: 6px;
     font-weight: bold;
     cursor: pointer;
+    transition: background 0.2s;
 }
 
+#lang-btn:hover {
+    background-color: #7dd3fc;
+}
+
+/* التنسيق الآمن والمستقر للحاوية الإعلانية */
+.ad-wrapper {
+    text-align: center;
+    margin: 25px auto;
+    width: 100%;
+    max-width: 730px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.ad-wrapper iframe, .ad-wrapper ins {
+    display: inline-block !important;
+    max-width: 100%;
+}
+
+/* تنسيق منطقة الترحيب */
 .hero {
     text-align: center;
     padding: 40px 20px;
@@ -46,41 +69,33 @@ header {
     margin-bottom: 10px;
 }
 
+.hero p {
+    color: #94a3b8;
+    margin: 0;
+}
+
+/* تنسيق الحاوية الرئيسية للأدوات */
 .main-container {
     max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
 }
 
-/* تحويل شبكة الأدوات إلى نظام ثنائي متجاوب */
 .tools-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* السطر السحري لترتيب الكروت تلقائياً بجانب بعضها */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 20px;
 }
 
-.t-desc {
-    color: #94a3b8; 
-    font-size: 0.9rem; 
-    margin-bottom: 15px;
-    height: 40px; /* توحيد الارتفاع للمظهر */
-}
-
-input[type="text"] {
-    width: 100%;
-    padding: 12px;
-    background-color: #0f172a;
-    color: #f8fafc;
-    border: 1px solid #334155;
-    border-radius: 8px;
-    box-sizing: border-box;
-}
-
+/* تنسيق كروت الأدوات المشترك */
 .tool-card {
     background-color: #1e293b;
     border: 1px solid #334155;
     border-radius: 12px;
     padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 textarea {
@@ -103,7 +118,8 @@ textarea {
     border: 1px dashed #38bdf8;
     font-size: 1.1rem;
 }
-/* تنسيق الفوتر */
+
+/* تنسيق الفوتر (تذييل الصفحة) */
 footer {
     background-color: #1e293b;
     padding: 20px;
@@ -113,26 +129,28 @@ footer {
     font-size: 0.9rem;
     color: #94a3b8;
 }
+
 .footer-links a {
     color: #38bdf8;
     text-decoration: none;
     margin: 0 10px;
 }
+
 .footer-links a:hover {
     text-decoration: underline;
 }
 
-/* تنسيق النوافذ المنبثقة (Modals) */
+/* تنسيق النوافذ المنبثقة القانونية (Modals) */
 .modal {
-    display: none; /* مخفية تلقائياً */
+    display: none;
     position: fixed;
     z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(15, 23, 42, 0.85); /* خلفية داكنة شفافة */
-    backdrop-filter: blur(5px); /* تأثير ضبابي للخلفية */
+    background-color: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(5px);
 }
 
 .modal-content {
@@ -145,62 +163,30 @@ footer {
     border-radius: 12px;
     position: relative;
     color: #f8fafc;
-    text-align: right; /* افتراضي للعربية */
+    text-align: right; /* افتراضي للغة العربية */
 }
 
-/* زر الإغلاق X */
+/* زر إغلاق النافذة X */
 .close-btn {
     position: absolute;
     top: 15px;
-    left: 20px; /* جهة اليسار لأن المحتوى عربي */
+    left: 20px; /* يسار في الواجهة العربية */
     color: #94a3b8;
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
 }
+
 .close-btn:hover {
     color: #38bdf8;
 }
 
-/* تعديل اتجاه النص عند تحويل المتصفح للغة الإنجليزية */
+/* تعديل الاتجاهات للنافذة تلقائياً عند قلب اللغة للإنجليزية */
 html[dir="ltr"] .modal-content {
     text-align: left;
 }
+
 html[dir="ltr"] .close-btn {
     left: auto;
     right: 20px;
-}
-
-/* التنسيق الجديد المضمون للحاوية الإعلانية */
-.ad-wrapper {
-    text-align: center;
-    margin: 25px auto;
-    width: 100%;
-    max-width: 730px; /* نفس عرض الإعلان تقريباً */
-    overflow-x: auto; /* إذا كانت الشاشة أصغر من الإعلان، سيسمح بالتمرير الداخلي الخفيف دون تخريب هيكل الموقع */
-    overflow-y: hidden;
-}
-
-/* هذا السطر يضمن أن المتصفح يعامل السكربت كعنصر كتلة مستقر */
-.ad-wrapper iframe, .ad-wrapper ins {
-    display: inline-block !important;
-    max-width: 100%;
-}
-/* تنسيق الأزرار داخل الكروت */
-/* أزرار الإجراءات */
-.action-btn {
-    background-color: #38bdf8;
-    color: #0f172a;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 12px;
-    width: 100%;
-    transition: background 0.2s;
-}
-
-.action-btn:hover {
-    background-color: #0ea5e9;
 }

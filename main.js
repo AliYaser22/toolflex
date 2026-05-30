@@ -1,27 +1,91 @@
+// 1. المتغير العام للغة
 let currentLanguage = 'ar';
 
+// 2. وظيفة عداد الكلمات والحروف
 function countText() {
-    const text = document.getElementById('text-input').value;
-    const charCount = text.length;
-    const wordCount = text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
-    document.getElementById('char-count').innerText = charCount;
-    document.getElementById('word-count').innerText = wordCount;
+    const textInput = document.getElementById('text-input');
+    const charCount = document.getElementById('char-count');
+    const wordCount = document.getElementById('word-count');
+
+    if (textInput && charCount && wordCount) {
+        const text = textInput.value;
+        charCount.innerText = text.length;
+        wordCount.innerText = text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
+    }
 }
 
-// دالتان لفتح وإغلاق النوافذ المنبثقة
+// 3. وظيفة مولد الوسوم الذكي (تم نقلها للأعلى لضمان التعريف)
+function generateTags() {
+    const inputElement = document.getElementById('hashtag-keyword');
+    const outputElement = document.getElementById('hashtag-output');
+    const copyBtn = document.getElementById('copy-tags-btn');
+    
+    if (!inputElement || !outputElement) return;
+
+    const keyword = inputElement.value.trim().toLowerCase();
+    
+    if (keyword === "") {
+        outputElement.innerText = currentLanguage === 'ar' ? "الرجاء إدخال كلمة مفتاحية أولاً!" : "Please enter a keyword first!";
+        if (copyBtn) copyBtn.style.display = "none";
+        return;
+    }
+    
+    const cleanKeyword = keyword.replace(/\s+/g, '_');
+    const tags = [
+        `#${cleanKeyword}`, 
+        `#${cleanKeyword}2026`, 
+        `#viral_${cleanKeyword}`, 
+        `#trending_${cleanKeyword}`, 
+        `#explore`, 
+        `#foryou`, 
+        `#instagram`, 
+        `#tiktok`
+    ];
+    
+    outputElement.innerText = tags.join(' ');
+    if (copyBtn) copyBtn.style.display = "inline-block";
+}
+
+// 4. وظيفة نسخ الوسوم
+function copyTags() {
+    const outputElement = document.getElementById('hashtag-output');
+    if (!outputElement) return;
+
+    const textToCopy = outputElement.innerText;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        const copyBtn = document.getElementById('copy-tags-btn');
+        if (!copyBtn) return;
+
+        const originalText = copyBtn.innerText;
+        copyBtn.innerText = currentLanguage === 'ar' ? "تم النسخ! ✓" : "Copied! ✓";
+        copyBtn.style.backgroundColor = "#22c55e";
+        
+        setTimeout(() => {
+            copyBtn.innerText = originalText;
+            copyBtn.style.backgroundColor = "#475569";
+        }, 2000);
+    });
+}
+
+// 5. وظائف النوافذ المنبثقة
 function openModal(modalId) {
-    document.getElementById(modalId).style.display = "block";
+    const modal = document.getElementById(modalId);
+    if (modal) modal.style.display = "block";
 }
 
+// 6. وظيفة إغلاق النوافذ المنبثقة
 function closeModal(modalId) {
-    document.getElementById(modalId).style.display = "none";
+    const modal = document.getElementById(modalId);
+    if (modal) modal.style.display = "none";
 }
 
-// دالة تبديل اللغة المحدثة لتشمل الصفحات القانونية
+// 7. وظيفة تبديل اللغة الشاملة
 function switchLanguage() {
     const html = document.documentElement;
     const langBtn = document.getElementById('lang-btn');
     
+    if (!html || !langBtn) return;
+
     if (currentLanguage === 'ar') {
         currentLanguage = 'en';
         html.setAttribute('lang', 'en');
@@ -35,7 +99,6 @@ function switchLanguage() {
         document.getElementById('text-input').placeholder = "Type or paste your text here...";
         document.getElementById('label-words').innerText = "Words:";
         document.getElementById('label-chars').innerText = "Characters:";
-
         
         document.getElementById('tool2-title').innerText = "📱 Social Media Hashtag Generator";
         document.getElementById('tool2-desc').innerText = "Generate viral and semantic tags for your posts to increase engagement.";
@@ -45,43 +108,17 @@ function switchLanguage() {
         if(document.getElementById('hashtag-output').innerText === "الوسوم المرتجعة ستظهر هنا...") {
             document.getElementById('hashtag-output').innerText = "Generated tags will appear here...";
         }
-
-        // ترجمة الفوتر والروابط
+        
         document.getElementById('link-privacy').innerText = "Privacy Policy";
         document.getElementById('link-terms').innerText = "Terms of Service";
-        
-        // ترجمة محتوى سياسة الخصوصية
-        document.getElementById('privacy-text').innerHTML = `
-            <h2>Privacy Policy</h2>
-            <p>At ToolFlex, the privacy of our visitors is of extreme importance to us. We do not collect, store, or share any data or text entered by the user. All operations are processed 100% locally inside your browser.</p>
-            <p>Third-party ad networks may use cookies to serve ads based on your prior visits to our website or other sites.</p>
-        `;
-        
-        // ترجمة محتوى شروط الاستخدام
-        document.getElementById('terms-text').innerHTML = `
-            <h2>Terms of Service</h2>
-            <p>By using ToolFlex, you agree to comply with the following terms:</p>
-            <ul>
-                <li>Tools are provided "as is" without warranties. We are not liable for any errors resulting from their use.</li>
-                <li>You are free to use these tools for personal or legal commercial purposes.</li>
-                <li>Any attempt to misuse the site or flood it with fake requests to harm the service is strictly prohibited.</li>
-            </ul>
-        `;
-        
+        document.getElementById('privacy-text').innerHTML = `<h2>Privacy Policy</h2><p>At ToolFlex, the privacy of our visitors is of extreme importance to us. We do not collect, store, or share any data or text entered by the user. All operations are processed 100% locally inside your browser.</p><p>Third-party ad networks may use cookies to serve ads based on your prior visits to our website or other sites.</p>`;
+        document.getElementById('terms-text').innerHTML = `<h2>Terms of Service</h2><p>By using ToolFlex, you agree to comply with the following terms:</p><ul><li>Tools are provided "as is" without warranties. We are not liable for any errors resulting from their use.</li><li>You are free to use these tools for personal or legal commercial purposes.</li><li>Any attempt to misuse the site or flood it with fake requests to harm the service is strictly prohibited.</li></ul>`;
     } else {
         currentLanguage = 'ar';
         html.setAttribute('lang', 'ar');
         html.setAttribute('dir', 'rtl');
         langBtn.innerText = 'English';
-
-        document.getElementById('tool2-title').innerText = "📱 مولد وسوم (Hashtags) السوشيال ميديا";
-        document.getElementById('tool2-desc').innerText = "ولّد وسومًا دلالية وقوية لمنشوراتك بضغطة زر لزيادة التفاعل.";
-        document.getElementById('hashtag-keyword').placeholder = "أدخل الكلمة المفتاحية (مثال: fitness)...";
-        document.getElementById('hashtag-btn').innerText = "توليد";
-        document.getElementById('copy-tags-btn').innerText = "نسخ الكل";
-        if(document.getElementById('hashtag-output').innerText === "Generated tags will appear here...") {
-            document.getElementById('hashtag-output').innerText = "الوسوم المرتجعة ستظهر هنا...";
-        }        
+        
         document.getElementById('hero-title').innerText = "أدوات مجانية لزيادة إنتاجيتك";
         document.getElementById('hero-desc').innerText = "كل ما تحتاجه لتطوير محتواك في مكان واحد، بسرعة وبدون تسجيل.";
         document.getElementById('tool1-title').innerText = "📊 عداد الكلمات والحروف";
@@ -90,67 +127,18 @@ function switchLanguage() {
         document.getElementById('label-words').innerText = "الكلمات:";
         document.getElementById('label-chars').innerText = "الحروف:";
         
+        document.getElementById('tool2-title').innerText = "📱 مولد وسوم (Hashtags) السوشيال ميديا";
+        document.getElementById('tool2-desc').innerText = "ولّد وسومًا دلالية وقوية لمنشوراتك بضغطة زر لزيادة التفاعل.";
+        document.getElementById('hashtag-keyword').placeholder = "أدخل الكلمة المفتاحية (مثال: fitness)...";
+        document.getElementById('hashtag-btn').innerText = "توليد";
+        document.getElementById('copy-tags-btn').innerText = "نسخ الكل";
+        if(document.getElementById('hashtag-output').innerText === "Generated tags will appear here...") {
+            document.getElementById('hashtag-output').innerText = "الوسوم المرتجعة ستظهر هنا...";
+        }
+        
         document.getElementById('link-privacy').innerText = "سياسة الخصوصية";
         document.getElementById('link-terms').innerText = "شروط الاستخدام";
-        
-        document.getElementById('privacy-text').innerHTML = `
-            <h2>سياسة الخصوصية</h2>
-            <p>في ToolFlex، خصوصية زوارنا لها أهمية بالغة بالنسبة لنا. نحن لا نجمع، ولا نخزن، ولا نشارك أي بيانات أو نصوص يقوم المستخدم بكتابتها أو معالجتها داخل الأدوات. جميع العمليات تتم محلياً بالكامل داخل متصفحك.</p>
-            <p>قد تستخدم شبكات الإعلانات الطرف الثالث ملفات تعريف الارتباط (Cookies) لعرض الإعلانات بناءً على زياراتك السابقة لموقعنا أو لمواقع أخرى.</p>
-        `;
-        
-        document.getElementById('terms-text').innerHTML = `
-            <h2>شروط الاستخدام</h2>
-            <p>باستخدامك لموقع ToolFlex، فإنك توافق على الالتزام بالشروط التالية:</p>
-            <ul>
-                <li>يتم تقديم الأدوات "كما هي" بدون أي ضمانات، ونحن غير مسؤولين عن أي خطأ ناتج عن استخدامها.</li>
-                <li>يُسمح باستخدام الأدوات بشكل مجاني بالكامل ولأغراض شخصية أو تجارية قانونية.</li>
-                <li>يُمنع محاولة إساءة استخدام الموقع أو محاولة إغراقه بطلبات وهمية تضر بالخادم أو بالخدمة.</li>
-            </ul>
-        `;
+        document.getElementById('privacy-text').innerHTML = `<h2>سياسة الخصوصية</h2><p>في ToolFlex، خصوصية زوارنا لها أهمية بالغة بالنسبة لنا. نحن لا نجمع، ولا نخزن، ولا نشارك أي بيانات أو نصوص يقوم المستخدم بكتابتها أو معالجتها داخل الأدوات. جميع العمليات تتم محلياً بالكامل داخل متصفحك.</p><p>قد تستخدم شبكات الإعلانات الطرف الثالث ملفات تعريف الارتباط (Cookies) لعرض الإعلانات بناءً على زياراتك السابقة لموقعنا أو لمواقع أخرى.</p>`;
+        document.getElementById('terms-text').innerHTML = `<h2>شروط الاستخدام</h2><p>باستخدامك لموقع ToolFlex، فإنك توافق على الالتزام بالشروط التالية:</p><ul><li>يتم تقديم الأدوات "كما هي" بدون أي ضمانات، ونحن غير مسؤولين عن أي خطأ ناتج عن استخدامها.</li><li>يُسمح باستخدام الأدوات بشكل مجاني بالكامل ولأغراض شخصية أو تجارية قانونية.</li><li>يُمنع محاولة إساءة استخدام الموقع أو محاولة إغراقه بطلبات وهمية تضر بالخادم أو بالخدمة.</li></ul>`;
     }
-}
-// وظيفة مولد الوسوم
-function generateTags() {
-    const keyword = document.getElementById('hashtag-keyword').value.trim().toLowerCase();
-    const output = document.getElementById('hashtag-output');
-    const copyBtn = document.getElementById('copy-tags-btn');
-    
-    if (!keyword) {
-        output.innerText = currentLanguage === 'ar' ? "الرجاء إدخال كلمة مفتاحية أولاً!" : "Please enter a keyword first!";
-        copyBtn.style.display = "none";
-        return;
-    }
-    
-    // مصفوفة لمحاكاة توليد وسوم قوية ومستهدفة بناء على كلمة المستخدم
-    const cleanKeyword = keyword.replace(/\s+/g, '_');
-    const tags = [
-        `#${cleanKeyword}`, 
-        `#${cleanKeyword}2026`, 
-        `#viral_${cleanKeyword}`, 
-        `#trending_${cleanKeyword}`, 
-        `#explore`, 
-        `#foryou`, 
-        `#instagram`, 
-        `#tiktok`
-    ];
-    
-    output.innerText = tags.join(' ');
-    copyBtn.style.display = "inline-block";
-}
-
-// وظيفة نسخ الوسوم المستخرجة بضغطة زر
-function copyTags() {
-    const textToCopy = document.getElementById('hashtag-output').innerText;
-    navigator.clipboard.writeText(textToCopy).then(() => {
-        const copyBtn = document.getElementById('copy-tags-btn');
-        const originalText = copyBtn.innerText;
-        copyBtn.innerText = currentLanguage === 'ar' ? "تم النسخ! ✓" : "Copied! ✓";
-        copyBtn.style.backgroundColor = "#22c55e";
-        
-        setTimeout(() => {
-            copyBtn.innerText = originalText;
-            copyBtn.style.backgroundColor = "#475569";
-        }, 2000);
-    });
 }

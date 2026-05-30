@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToolFlex | أدوات مجانية</title>
-    <!-- ربط ملف التنسيق -->
+    <title>ToolFlex | أدوات مجانية لصناع المحتوى</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- الهيدر وزر اللغة -->
     <header>
         <div class="header-container">
             <div class="logo">ToolFlex ✨</div>
@@ -18,8 +16,7 @@
     </header>
 
     <div class="ad-wrapper">
-        
-        <div id="fallback-ad" style="width: 728px; height: 90px; background: #1e293b; color: #38bdf8; border: 1px dashed #38bdf8; display: flex; justify-content: center; align-items: center; font-weight: bold; border-radius: 8px;">
+        <div id="fallback-ad" style="width: 728px; height: 90px; background: #1e293b; color: #38bdf8; border: 1px dashed #38bdf8; display: flex; justify-content: center; align-items: center; font-weight: bold; border-radius: 8px; font-size: 0.9rem;">
             📢 مساحة إعلانية نشطة (مظهر متناسق 728x90)
         </div>
 
@@ -33,7 +30,6 @@
             };
         </script>
         <script type="text/javascript" src="//www.highperformanceformat.com/xxxxxxxx/invoke.js"></script>
-        
     </div>
 
     <section class="hero">
@@ -41,40 +37,39 @@
         <p id="hero-desc">كل ما تحتاجه لتطوير محتواك في مكان واحد، بسرعة وبدون تسجيل.</p>
     </section>
 
-    <!-- منطقة الأدوات -->
     <main class="main-container">
         <div class="tools-grid">
             
-            <!-- أداة 1: عداد الكلمات والحروف -->
             <div class="tool-card">
                 <h3 id="tool1-title">📊 عداد الكلمات والحروف</h3>
-                <p id="tool1-desc" class="t-desc">احسب عدد الكلمات والحروف في نصك فوراً.</p>
+                <p id="tool1-desc" style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 15px;">احسب عدد الكلمات والحروف في نصك فوراً.</p>
+                
                 <textarea id="text-input" oninput="countText()" placeholder="اكتب أو الصق نصك هنا..."></textarea>
+                
                 <div class="results-box">
                     <span id="label-words">الكلمات:</span> <strong id="word-count">0</strong> | 
                     <span id="label-chars">الحروف:</span> <strong id="char-count">0</strong>
                 </div>
             </div>
 
-<!-- كرت الأداة الثانية: مولد الوسوم -->
-<div class="tool-card">
-    <h3 id="tool2-title">📱 مولد وسوم (Hashtags) السوشيال ميديا</h3>
-    <p id="tool2-desc" style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 15px;">ولّد وسومًا دلالية وقوية لمنشوراتك بضغطة زر لزيادة التفاعل.</p>
-    
-    <!-- واجهة الأداة التفاعلية -->
-    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-        <input type="text" id="hashtag-keyword" placeholder="أدخل الكلمة المفتاحية (مثال: fitness)..." style="flex: 1; padding: 10px; background-color: #0f172a; color: #f8fafc; border: 1px solid #334155; border-radius: 8px;">
-        <button id="hashtag-btn" onclick="generateTags()" style="background-color: #38bdf8; color: #0f172a; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">توليد</button>
-    </div>
-    
-    <div class="results-box" style="position: relative;">
-        <div id="hashtag-output" style="color: #94a3b8; font-size: 0.95rem; min-height: 40px; word-break: break-all;">الوسوم المرتجعة ستظهر هنا...</div>
-        <button id="copy-tags-btn" onclick="copyTags()" style="display: none; margin-top: 10px; background-color: #475569; color: #f8fafc; border: none; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">نسخ الكل</button>
-    </div>
-</div>
+            <div class="tool-card">
+                <h3 id="tool2-title">📱 مولد وسوم (Hashtags) السوشيال ميديا</h3>
+                <p id="tool2-desc" style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 15px;">ولّد وسومًا دلالية وقوية لمنشوراتك بضغطة زر لزيادة التفاعل.</p>
+                
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <input type="text" id="hashtag-keyword" placeholder="أدخل الكلمة المفتاحية (مثال: fitness)..." style="flex: 1; padding: 10px; background-color: #0f172a; color: #f8fafc; border: 1px solid #334155; border-radius: 8px; box-sizing: border-box;">
+                    <button id="hashtag-btn" onclick="generateTags()" style="background-color: #38bdf8; color: #0f172a; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">توليد</button>
+                </div>
+                
+                <div class="results-box" style="position: relative;">
+                    <div id="hashtag-output" style="color: #94a3b8; font-size: 0.95rem; min-height: 40px; word-break: break-all;">الوسوم المرتجعة ستظهر هنا...</div>
+                    <button id="copy-tags-btn" onclick="copyTags()" style="display: none; margin-top: 10px; background-color: #475569; color: #f8fafc; border: none; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">نسخ الكل</button>
+                </div>
+            </div>
+
+        </div>
     </main>
 
-    <!-- تذييل الصفحة (الفوتر) -->
     <footer>
         <div class="footer-container">
             <p>&copy; 2026 ToolFlex. All rights reserved.</p>
@@ -85,7 +80,6 @@
         </div>
     </footer>
 
-    <!-- النافذة المنبثقة لسياسة الخصوصية -->
     <div id="privacy-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('privacy-modal')">&times;</span>
@@ -97,7 +91,6 @@
         </div>
     </div>
 
-    <!-- النافذة المنبثقة لشروط الاستخدام -->
     <div id="terms-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('terms-modal')">&times;</span>
@@ -112,7 +105,7 @@
             </div>
         </div>
     </div>
-    <!-- ربط ملف البرمجة -->
+
     <script src="main.js"></script>
 </body>
 </html>
