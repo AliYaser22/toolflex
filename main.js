@@ -214,6 +214,13 @@ function switchLanguage() {
         if(document.getElementById('translate-output').innerText === "النص المترجم سيظهر هنا...") {
             document.getElementById('translate-output').innerText = "Translated text will appear here...";
         }
+        document.getElementById('tool12-title').innerText = "📄 Quick CV Builder";
+        document.getElementById('tool12-desc').innerText = "Create a professional and clean resume ready to print and download as a PDF instantly.";
+        document.getElementById('cv-name').placeholder = "Full Name (e.g., John Doe)...";
+        document.getElementById('cv-email').placeholder = "Email Address...";
+        document.getElementById('cv-skills').placeholder = "Core Skills (separate with commas)...";
+        document.getElementById('cv-experience').placeholder = "Experience or brief summary about yourself...";
+        document.getElementById('cv-btn').innerText = "Generate & Download CV as PDF";
     } else {
         currentLanguage = 'ar';
         html.setAttribute('lang', 'ar');
@@ -342,6 +349,13 @@ function switchLanguage() {
         if(document.getElementById('translate-output').innerText === "Translated text will appear here...") {
             document.getElementById('translate-output').innerText = "النص المترجم سيظهر هنا...";
         }
+        document.getElementById('tool12-title').innerText = "📄 منشئ السيرة الذاتية السريع (CV)";
+        document.getElementById('tool12-desc').innerText = "أنشئ سيرة ذاتية احترافية ومبسطة جاهزة للطباعة والتحميل كملف PDF فوراً.";
+        document.getElementById('cv-name').placeholder = "الاسم الكامل (مثال: محمد أحمد)...";
+        document.getElementById('cv-email').placeholder = "البريد الإلكتروني...";
+        document.getElementById('cv-skills').placeholder = "المهارات الأساسية (افصل بينها بفاصلة)...";
+        document.getElementById('cv-experience').placeholder = "الخبرات أو نبذة مختصرة عنك...";
+        document.getElementById('cv-btn').innerText = "توليد وتحميل الـ CV كـ PDF";
     }
 }
 // وظيفة منظف النصوص الذكي
@@ -805,4 +819,67 @@ function copyTranslatedText() {
             copyBtn.style.backgroundColor = "#475569";
         }, 2000);
     });
+}
+// وظيفة منشئ السيرة الذاتية الاحترافية بصيغة PDF
+function generateCV() {
+    const name = document.getElementById('cv-name').value.trim();
+    const email = document.getElementById('cv-email').value.trim();
+    const skills = document.getElementById('cv-skills').value.trim();
+    const exp = document.getElementById('cv-experience').value.trim();
+
+    if (name === "" || email === "") {
+        alert(currentLanguage === 'ar' ? "الرجاء إدخال الاسم والبريد الإلكتروني كحد أدنى!" : "Please enter at least your name and email!");
+        return;
+    }
+
+    // فتح نافذة جديدة في المتصفح لبناء الـ CV بداخلها وتجنب تشويه تصميم الموقع الأساسي
+    const cvWindow = window.open('', '_blank');
+    
+    // بناء هويّة وتصميم الـ CV الأنيق والأبيض المخصص للطباعة الرسمية
+    cvWindow.document.write(`
+        <html lang="${currentLanguage}" dir="${currentLanguage === 'ar' ? 'rtl' : 'ltr'}">
+        <head>
+            <meta charset="UTF-8">
+            <title>CV - ${name}</title>
+            <style>
+                body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 40px; color: #333; background: #fff; line-height: 1.6; }
+                .header { text-align: center; border-bottom: 3px solid #38bdf8; padding-bottom: 20px; margin-bottom: 30px; }
+                .header h1 { margin: 0; color: #0f172a; font-size: 28px; }
+                .header p { margin: 5px 0 0 0; color: #475569; font-size: 16px; }
+                .section { margin-bottom: 25px; }
+                .section-title { font-size: 18px; color: #0f172a; border-bottom: 1px solid #cbd5e1; padding-bottom: 5px; margin-bottom: 10px; font-weight: bold; }
+                .content { font-size: 14px; color: #334155; white-space: pre-wrap; }
+                .skills-list { display: flex; gap: 10px; flex-wrap: wrap; list-style: none; padding: 0; }
+                .skills-list li { background: #f1f5f9; padding: 5px 12px; border-radius: 4px; font-size: 13px; border: 1px solid #e2e8f0; }
+                @media print { button { display: none; } }
+            </style>
+        </head>
+        <body>
+            <div class="header">
+                <h1>${name}</h1>
+                <p>${email}</p>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">${currentLanguage === 'ar' ? '📌 نبذة عني والخبرات المهنية' : '📌 Professional Experience & Summary'}</div>
+                <div class="content">${exp !== "" ? exp : (currentLanguage === 'ar' ? 'لا توجد خبرات مضافة.' : 'No experience provided.')}</div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">${currentLanguage === 'ar' ? '🛠️ المهارات الأساسية' : '🛠️ Core Skills'}</div>
+                <ul class="skills-list">
+                    ${skills !== "" ? skills.split(',').map(s => `<li>${s.trim()}</li>`).join('') : `<li>${currentLanguage === 'ar' ? 'مهارات عامة' : 'General Skills'}</li>`}
+                </ul>
+            </div>
+
+            <script>
+                // استدعاء أمر الطباعة التلقائي فور تحميل الصفحة لتمكين الحفظ كـ PDF
+                window.onload = function() {
+                    window.print();
+                }
+            </script>
+        </body>
+        </html>
+    `);
+    cvWindow.document.close();
 }

@@ -252,6 +252,19 @@
                     <button id="copy-translate-btn" onclick="copyTranslatedText()" style="display: none; margin-top: 10px; background-color: #475569; color: #f8fafc; border: none; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">نسخ الترجمة</button>
                 </div>
             </div>
+            <div class="tool-card">
+                <h3 id="tool12-title">📄 منشئ السيرة الذاتية السريع (CV)</h3>
+                <p id="tool12-desc" style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 15px;">أنشئ سيرة ذاتية احترافية ومبسطة جاهزة للطباعة والتحميل كملف PDF فوراً.</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px;">
+                    <input type="text" id="cv-name" placeholder="الاسم الكامل (مثال: محمد أحمد)..." style="width: 100%; padding: 8px; background-color: #0f172a; color: #f8fafc; border: 1px solid #334155; border-radius: 8px; box-sizing: border-box;">
+                    <input type="email" id="cv-email" placeholder="البريد الإلكتروني..." style="width: 100%; padding: 8px; background-color: #0f172a; color: #f8fafc; border: 1px solid #334155; border-radius: 8px; box-sizing: border-box;">
+                    <input type="text" id="cv-skills" placeholder="المهارات الأساسية (افصل بينها بفاصلة)..." style="width: 100%; padding: 8px; background-color: #0f172a; color: #f8fafc; border: 1px solid #334155; border-radius: 8px; box-sizing: border-box;">
+                    <textarea id="cv-experience" placeholder="الخبرات أو نبذة مختصرة عنك..." style="width: 100%; height: 60px; background-color: #0f172a; color: #f8fafc; border: 1px solid #334155; border-radius: 8px; padding: 8px; box-sizing: border-box; resize: none;"></textarea>
+                </div>
+
+                <button id="cv-btn" onclick="generateCV()" style="width: 100%; background-color: #38bdf8; color: #0f172a; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer;">توليد وتحميل الـ CV كـ PDF</button>
+            </div>
 
         </div>
     </main>
