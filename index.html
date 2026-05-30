@@ -159,6 +159,20 @@
                     <button id="copy-wa-btn" onclick="copyWhatsAppLink()" style="display: none; margin-top: 10px; background-color: #475569; color: #f8fafc; border: none; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">نسخ الرابط</button>
                 </div>
             </div>
+            <div class="tool-card">
+                <h3 id="tool8-title">📱 منشئ أكواد الاستجابة السريعة (QR)</h3>
+                <p id="tool8-desc" style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 15px;">حوّل أي رابط أو نص إلى كود QR فريد بلمحة بصر لمشاركته وطباعته.</p>
+                
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <input type="text" id="qr-input" placeholder="أدخل الرابط أو النص هنا (مثال: https://...)..." style="flex: 1; padding: 10px; background-color: #0f172a; color: #f8fafc; border: 1px solid #334155; border-radius: 8px; box-sizing: border-box;">
+                    <button id="qr-btn" onclick="generateQRCode()" style="background-color: #38bdf8; color: #0f172a; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">توليد</button>
+                </div>
+                
+                <div class="results-box" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100px;">
+                    <div id="qr-output" style="color: #94a3b8; font-size: 0.95rem;">الكود المولد سيظهر هنا...</div>
+                    <a id="download-qr-btn" href="#" download="QRCode.png" style="display: none; margin-top: 15px; background-color: #475569; color: #f8fafc; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 0.85rem; font-weight: bold; cursor: pointer;">تحميل الكود كصورة</a>
+                </div>
+            </div>
 
         </div>
     </main>

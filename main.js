@@ -161,6 +161,14 @@ function switchLanguage() {
         if(document.getElementById('wa-output').innerText === "الرابط السحري سيظهر هنا...") {
             document.getElementById('wa-output').innerText = "The magic link will appear here...";
         }
+        document.getElementById('tool8-title').innerText = "📱 QR Code Generator";
+        document.getElementById('tool8-desc').innerText = "Convert any link or text into a unique QR code in a flash to share and print.";
+        document.getElementById('qr-input').placeholder = "Enter link or text here (e.g., https://...)...";
+        document.getElementById('qr-btn').innerText = "Generate";
+        document.getElementById('download-qr-btn').innerText = "Download QR Image";
+        if(document.getElementById('qr-output').innerText === "الكود المولد سيظهر هنا...") {
+            document.getElementById('qr-output').innerText = "Generated QR code will appear here...";
+        }
     } else {
         currentLanguage = 'ar';
         html.setAttribute('lang', 'ar');
@@ -235,6 +243,14 @@ function switchLanguage() {
         document.getElementById('copy-wa-btn').innerText = "نسخ الرابط";
         if(document.getElementById('wa-output').innerText === "The magic link will appear here...") {
             document.getElementById('wa-output').innerText = "الرابط السحري سيظهر هنا...";
+        }
+        document.getElementById('tool8-title').innerText = "📱 منشئ أكواد الاستجابة السريعة (QR)";
+        document.getElementById('tool8-desc').innerText = "حوّل أي رابط أو نص إلى كود QR فريد بلمحة بصر لمشاركته وطباعته.";
+        document.getElementById('qr-input').placeholder = "أدخل الرابط أو النص هنا (مثال: https://...)...";
+        document.getElementById('qr-btn').innerText = "توليد";
+        document.getElementById('download-qr-btn').innerText = "تحميل الكود كصورة";
+        if(document.getElementById('qr-output').innerText === "Generated QR code will appear here...") {
+            document.getElementById('qr-output').innerText = "الكود المولد سيظهر هنا...";
         }
     }
 }
@@ -515,4 +531,32 @@ function copyWhatsAppLink() {
             copyBtn.style.backgroundColor = "#475569";
         }, 2000);
     });
+}
+// وظيفة منشئ أكواد QR Code
+function generateQRCode() {
+    const inputElement = document.getElementById('qr-input');
+    const outputElement = document.getElementById('qr-output');
+    const downloadBtn = document.getElementById('download-qr-btn');
+    
+    if (!inputElement || !outputElement) return;
+    
+    const text = inputElement.value.trim();
+    
+    if (text === "") {
+        outputElement.textContent = currentLanguage === 'ar' ? "الرجاء إدخال رابط أو نص أولاً!" : "Please enter a link or text first!";
+        if (downloadBtn) downloadBtn.style.display = "none";
+        return;
+    }
+    
+    // استخدام خدمة ميكروسوفت/جوجل المفتوحة والمستقرة لتوليد رمز الاستجابة الفوري بحجم متناسق 150x150
+    const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(text)}`;
+    
+    // حقن الصورة داخل حاوية النتائج بشكل أنيق
+    outputElement.innerHTML = `<img src="${qrImageUrl}" alt="QR Code" style="border: 4px solid #ffffff; border-radius: 8px; margin: 5px 0; max-width: 150px; display: block;">`;
+    
+    // تفعيل وتجهيز زر التحميل التلقائي
+    if (downloadBtn) {
+        downloadBtn.href = qrImageUrl;
+        downloadBtn.style.display = "inline-block";
+    }
 }
