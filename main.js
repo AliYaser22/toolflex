@@ -152,6 +152,15 @@ function switchLanguage() {
         if(document.getElementById('extract-output').innerText === "الأرقام المستخرجة ستظهر هنا...") {
             document.getElementById('extract-output').innerText = "Extracted numbers will appear here...";
         }
+        document.getElementById('tool7-title').innerText = "🟢 Direct WhatsApp Link Generator";
+        document.getElementById('tool7-desc').innerText = "Convert your phone number into a direct link with a pre-filled message for your clients.";
+        document.getElementById('wa-phone').placeholder = "Phone number with country code (e.g., 1234567890)...";
+        document.getElementById('wa-message').placeholder = "Optional automatic message...";
+        document.getElementById('wa-btn').innerText = "Generate Direct Link";
+        document.getElementById('copy-wa-btn').innerText = "Copy Link";
+        if(document.getElementById('wa-output').innerText === "الرابط السحري سيظهر هنا...") {
+            document.getElementById('wa-output').innerText = "The magic link will appear here...";
+        }
     } else {
         currentLanguage = 'ar';
         html.setAttribute('lang', 'ar');
@@ -217,6 +226,15 @@ function switchLanguage() {
         document.getElementById('copy-extract-btn').innerText = "نسخ الأرقام";
         if(document.getElementById('extract-output').innerText === "Extracted numbers will appear here...") {
             document.getElementById('extract-output').innerText = "الأرقام المستخرجة ستظهر هنا...";
+        }
+        document.getElementById('tool7-title').innerText = "🟢 مولد روابط واتساب المباشرة";
+        document.getElementById('tool7-desc').innerText = "حوّل رقم هاتفك إلى رابط مباشر مع رسالة مجهزة مسبقاً لعملائك بضغطة زر.";
+        document.getElementById('wa-phone').placeholder = "رقم الهاتف مع رمز الدولة (مثال: 966500000000)...";
+        document.getElementById('wa-message').placeholder = "الرسالة التلقائية الاختيارية (مثال: أهلاً، أريد الاستفسار عن خدماتكم)...";
+        document.getElementById('wa-btn').innerText = "توليد الرابط المباشر";
+        document.getElementById('copy-wa-btn').innerText = "نسخ الرابط";
+        if(document.getElementById('wa-output').innerText === "The magic link will appear here...") {
+            document.getElementById('wa-output').innerText = "الرابط السحري سيظهر هنا...";
         }
     }
 }
@@ -434,6 +452,58 @@ function copyExtractedNumbers() {
     const textToCopy = outputElement.textContent;
     navigator.clipboard.writeText(textToCopy).then(() => {
         const copyBtn = document.getElementById('copy-extract-btn');
+        if (!copyBtn) return;
+
+        const originalText = copyBtn.innerText;
+        copyBtn.innerText = currentLanguage === 'ar' ? "تم النسخ! ✓" : "Copied! ✓";
+        copyBtn.style.backgroundColor = "#22c55e";
+        
+        setTimeout(() => {
+            copyBtn.innerText = originalText;
+            copyBtn.style.backgroundColor = "#475569";
+        }, 2000);
+    });
+}
+// وظيفة مولد روابط واتساب
+function generateWhatsAppLink() {
+    const phoneInput = document.getElementById('wa-phone');
+    const msgInput = document.getElementById('wa-message');
+    const outputElement = document.getElementById('wa-output');
+    const copyBtn = document.getElementById('copy-wa-btn');
+
+    if (!phoneInput || !outputElement) return;
+
+    // تنظيف رقم الهاتف من أي مسافات أو إشارات زرقاء مثل +
+    let phone = phoneInput.value.trim().replace(/[\s+]/g, '');
+    const message = msgInput ? msgInput.value.trim() : "";
+
+    if (phone === "") {
+        outputElement.textContent = currentLanguage === 'ar' ? "الرجاء إدخال رقم الهاتف أولاً!" : "Please enter the phone number first!";
+        if (copyBtn) copyBtn.style.display = "none";
+        return;
+    }
+
+    // بناء الرابط القياسي لواتساب
+    let baseUrl = `https://wa.me/${phone}`;
+    if (message !== "") {
+        baseUrl += `?text=${encodeURIComponent(message)}`;
+    }
+
+    outputElement.innerHTML = `<a href="${baseUrl}" target="_blank" style="color: #22c55e; text-decoration: underline;">${baseUrl}</a>`;
+    if (copyBtn) copyBtn.style.display = "inline-block";
+}
+
+// وظيفة نسخ رابط واتساب
+function copyWhatsAppLink() {
+    const outputElement = document.getElementById('wa-output');
+    if (!outputElement) return;
+
+    // جلب الرابط من داخل الوسم a
+    const linkElement = outputElement.querySelector('a');
+    const textToCopy = linkElement ? linkElement.href : outputElement.textContent;
+
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        const copyBtn = document.getElementById('copy-wa-btn');
         if (!copyBtn) return;
 
         const originalText = copyBtn.innerText;

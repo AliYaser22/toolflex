@@ -143,6 +143,22 @@
                     <button id="copy-extract-btn" onclick="copyExtractedNumbers()" style="display: none; margin-top: 10px; background-color: #475569; color: #f8fafc; border: none; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">نسخ الأرقام</button>
                 </div>
             </div>
+            <div class="tool-card">
+                <h3 id="tool7-title">🟢 مولد روابط واتساب المباشرة</h3>
+                <p id="tool7-desc" style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 15px;">حوّل رقم هاتفك إلى رابط مباشر مع رسالة مجهزة مسبقاً لعملائك بضغطة زر.</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px;">
+                    <input type="tel" id="wa-phone" placeholder="رقم الهاتف مع رمز الدولة (مثال: 966500000000)..." style="width: 100%; padding: 10px; background-color: #0f172a; color: #f8fafc; border: 1px solid #334155; border-radius: 8px; box-sizing: border-box;">
+                    <textarea id="wa-message" placeholder="الرسالة التلقائية الاختيارية (مثال: أهلاً، أريد الاستفسار عن خدماتكم)..." style="width: 100%; height: 60px; background-color: #0f172a; color: #f8fafc; border: 1px solid #334155; border-radius: 8px; padding: 10px; box-sizing: border-box; resize: none;"></textarea>
+                </div>
+                
+                <button id="wa-btn" onclick="generateWhatsAppLink()" style="width: 100%; background-color: #22c55e; color: #ffffff; border: none; padding: 10px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 15px;">توليد الرابط المباشر</button>
+                
+                <div class="results-box" style="position: relative;">
+                    <div id="wa-output" style="color: #94a3b8; font-size: 0.9rem; min-height: 35px; word-break: break-all;">الرابط السحري سيظهر هنا...</div>
+                    <button id="copy-wa-btn" onclick="copyWhatsAppLink()" style="display: none; margin-top: 10px; background-color: #475569; color: #f8fafc; border: none; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">نسخ الرابط</button>
+                </div>
+            </div>
 
         </div>
     </main>
