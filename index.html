@@ -45,21 +45,33 @@
     <main class="main-container">
         <div class="tools-grid">
             
-            <!-- كرت الأداة الأولى -->
+            <!-- أداة 1: عداد الكلمات والحروف -->
             <div class="tool-card">
                 <h3 id="tool1-title">📊 عداد الكلمات والحروف</h3>
-                <p id="tool1-desc" style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 15px;">احسب عدد الكلمات والحروف في نصك فوراً.</p>
-                
-                <!-- واجهة الأداة التفاعلية -->
+                <p id="tool1-desc" class="t-desc">احسب عدد الكلمات والحروف في نصك فوراً.</p>
                 <textarea id="text-input" oninput="countText()" placeholder="اكتب أو الصق نصك هنا..."></textarea>
-                
                 <div class="results-box">
                     <span id="label-words">الكلمات:</span> <strong id="word-count">0</strong> | 
                     <span id="label-chars">الحروف:</span> <strong id="char-count">0</strong>
                 </div>
             </div>
 
-        </div>
+<!-- كرت الأداة الثانية: مولد الوسوم -->
+<div class="tool-card">
+    <h3 id="tool2-title">📱 مولد وسوم (Hashtags) السوشيال ميديا</h3>
+    <p id="tool2-desc" style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 15px;">ولّد وسومًا دلالية وقوية لمنشوراتك بضغطة زر لزيادة التفاعل.</p>
+    
+    <!-- واجهة الأداة التفاعلية -->
+    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+        <input type="text" id="hashtag-keyword" placeholder="أدخل الكلمة المفتاحية (مثال: fitness)..." style="flex: 1; padding: 10px; background-color: #0f172a; color: #f8fafc; border: 1px solid #334155; border-radius: 8px;">
+        <button id="hashtag-btn" onclick="generateTags()" style="background-color: #38bdf8; color: #0f172a; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">توليد</button>
+    </div>
+    
+    <div class="results-box" style="position: relative;">
+        <div id="hashtag-output" style="color: #94a3b8; font-size: 0.95rem; min-height: 40px; word-break: break-all;">الوسوم المرتجعة ستظهر هنا...</div>
+        <button id="copy-tags-btn" onclick="copyTags()" style="display: none; margin-top: 10px; background-color: #475569; color: #f8fafc; border: none; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; cursor: pointer;">نسخ الكل</button>
+    </div>
+</div>
     </main>
 
     <!-- تذييل الصفحة (الفوتر) -->

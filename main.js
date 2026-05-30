@@ -35,7 +35,17 @@ function switchLanguage() {
         document.getElementById('text-input').placeholder = "Type or paste your text here...";
         document.getElementById('label-words').innerText = "Words:";
         document.getElementById('label-chars').innerText = "Characters:";
+
         
+        document.getElementById('tool2-title').innerText = "📱 Social Media Hashtag Generator";
+        document.getElementById('tool2-desc').innerText = "Generate viral and semantic tags for your posts to increase engagement.";
+        document.getElementById('hashtag-keyword').placeholder = "Enter keyword (e.g., fitness)...";
+        document.getElementById('hashtag-btn').innerText = "Generate";
+        document.getElementById('copy-tags-btn').innerText = "Copy All";
+        if(document.getElementById('hashtag-output').innerText === "الوسوم المرتجعة ستظهر هنا...") {
+            document.getElementById('hashtag-output').innerText = "Generated tags will appear here...";
+        }
+
         // ترجمة الفوتر والروابط
         document.getElementById('link-privacy').innerText = "Privacy Policy";
         document.getElementById('link-terms').innerText = "Terms of Service";
@@ -63,7 +73,15 @@ function switchLanguage() {
         html.setAttribute('lang', 'ar');
         html.setAttribute('dir', 'rtl');
         langBtn.innerText = 'English';
-        
+
+        document.getElementById('tool2-title').innerText = "📱 مولد وسوم (Hashtags) السوشيال ميديا";
+        document.getElementById('tool2-desc').innerText = "ولّد وسومًا دلالية وقوية لمنشوراتك بضغطة زر لزيادة التفاعل.";
+        document.getElementById('hashtag-keyword').placeholder = "أدخل الكلمة المفتاحية (مثال: fitness)...";
+        document.getElementById('hashtag-btn').innerText = "توليد";
+        document.getElementById('copy-tags-btn').innerText = "نسخ الكل";
+        if(document.getElementById('hashtag-output').innerText === "Generated tags will appear here...") {
+            document.getElementById('hashtag-output').innerText = "الوسوم المرتجعة ستظهر هنا...";
+        }        
         document.getElementById('hero-title').innerText = "أدوات مجانية لزيادة إنتاجيتك";
         document.getElementById('hero-desc').innerText = "كل ما تحتاجه لتطوير محتواك في مكان واحد، بسرعة وبدون تسجيل.";
         document.getElementById('tool1-title').innerText = "📊 عداد الكلمات والحروف";
@@ -91,4 +109,48 @@ function switchLanguage() {
             </ul>
         `;
     }
+}
+// وظيفة مولد الوسوم
+function generateTags() {
+    const keyword = document.getElementById('hashtag-keyword').value.trim().toLowerCase();
+    const output = document.getElementById('hashtag-output');
+    const copyBtn = document.getElementById('copy-tags-btn');
+    
+    if (!keyword) {
+        output.innerText = currentLanguage === 'ar' ? "الرجاء إدخال كلمة مفتاحية أولاً!" : "Please enter a keyword first!";
+        copyBtn.style.display = "none";
+        return;
+    }
+    
+    // مصفوفة لمحاكاة توليد وسوم قوية ومستهدفة بناء على كلمة المستخدم
+    const cleanKeyword = keyword.replace(/\s+/g, '_');
+    const tags = [
+        `#${cleanKeyword}`, 
+        `#${cleanKeyword}2026`, 
+        `#viral_${cleanKeyword}`, 
+        `#trending_${cleanKeyword}`, 
+        `#explore`, 
+        `#foryou`, 
+        `#instagram`, 
+        `#tiktok`
+    ];
+    
+    output.innerText = tags.join(' ');
+    copyBtn.style.display = "inline-block";
+}
+
+// وظيفة نسخ الوسوم المستخرجة بضغطة زر
+function copyTags() {
+    const textToCopy = document.getElementById('hashtag-output').innerText;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        const copyBtn = document.getElementById('copy-tags-btn');
+        const originalText = copyBtn.innerText;
+        copyBtn.innerText = currentLanguage === 'ar' ? "تم النسخ! ✓" : "Copied! ✓";
+        copyBtn.style.backgroundColor = "#22c55e";
+        
+        setTimeout(() => {
+            copyBtn.innerText = originalText;
+            copyBtn.style.backgroundColor = "#475569";
+        }, 2000);
+    });
 }

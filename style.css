@@ -52,10 +52,28 @@ header {
     padding: 20px;
 }
 
+/* تحويل شبكة الأدوات إلى نظام ثنائي متجاوب */
 .tools-grid {
     display: grid;
-    grid-template-columns: 1fr; /* مناسب للموبايل تلقائياً */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* السطر السحري لترتيب الكروت تلقائياً بجانب بعضها */
     gap: 20px;
+}
+
+.t-desc {
+    color: #94a3b8; 
+    font-size: 0.9rem; 
+    margin-bottom: 15px;
+    height: 40px; /* توحيد الارتفاع للمظهر */
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #0f172a;
+    color: #f8fafc;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    box-sizing: border-box;
 }
 
 .tool-card {
@@ -167,4 +185,22 @@ html[dir="ltr"] .close-btn {
 .ad-wrapper iframe, .ad-wrapper ins {
     display: inline-block !important;
     max-width: 100%;
+}
+/* تنسيق الأزرار داخل الكروت */
+/* أزرار الإجراءات */
+.action-btn {
+    background-color: #38bdf8;
+    color: #0f172a;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 12px;
+    width: 100%;
+    transition: background 0.2s;
+}
+
+.action-btn:hover {
+    background-color: #0ea5e9;
 }
